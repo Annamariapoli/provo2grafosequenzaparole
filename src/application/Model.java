@@ -79,9 +79,6 @@ public class Model {
 	}
 	
 	
-	
-	
-	
 	//devo pero anche contare il numero di collegamenti max, so max
 	
 	public String getParolaMax(UndirectedGraph<String, DefaultEdge>grafo){   //visita del grafo x il max numero di collegamenti della parola
@@ -108,12 +105,6 @@ public class Model {
 		return max;
 	}
 	
-	
-	
-	
-	
-	
-	
 	public boolean getPresente(String nome){
 		return dao.isPresente(nome);
 	}
@@ -126,7 +117,7 @@ public class Model {
 	}
 	
 	
-	public List<String> esisteCammino(UndirectedGraph<String, DefaultEdge>grafo, String iniziale, String finale){
+	public List<String> getCammino(UndirectedGraph<String, DefaultEdge>grafo, String iniziale, String finale){
 		if(iniziale == null || finale ==null){
 			return null;
 		}
@@ -137,7 +128,4 @@ public class Model {
 		}
 		return Graphs.getPathVertexList(path);   //se esiste il cammino
 		}	
-	
-	
-	
 }

@@ -49,11 +49,12 @@ public class SampleController {
     void doCarica(ActionEvent event) {
     	txtResult.clear();
     	try{
-    		int lunghezza = Integer.parseInt(txtLunghezza.getText());
-    		if(lunghezza==0){
-    		  txtResult.appendText("Inserire un numero diverso da 0 ! \n");
-    		  return;
-    	    }
+    		   int lunghezza = Integer.parseInt(txtLunghezza.getText());
+    		   if(lunghezza==0){
+      		   txtResult.appendText("Inserire un numero diverso da 0 ! \n");
+      		   return;
+      	       }
+    		   
     	    int numero = model.getNumeroParole(lunghezza);
     	    UndirectedGraph<String, DefaultEdge> grafo  = model.buildGraph(lunghezza);
     	    int numeroArchi = model.getNumeroArchi(grafo);
@@ -62,12 +63,13 @@ public class SampleController {
     	    txtResult.appendText("Caricate " +numero+ " parole di lunghezza "+lunghezza+" \n");
     	    txtResult.appendText("Creato grafo con "+numero+" vertici e "+numeroArchi+" archi \n");
     	    txtResult.appendText("La parola " +s+ " è la parola che possiede piu connessioni con altre parole  " );
+
+         }  catch(Exception e ){
+        		txtResult.appendText("Inserire un numero valido! \n");
+        		return;		
+        	}
     	
     	
-    	}catch(Exception e ){
-    		txtResult.appendText("Inserire un numero valido! \n");
-    		return;
-    	}
     }
 
     @FXML
@@ -100,8 +102,8 @@ public class SampleController {
     			 return;
     		 }
     		 UndirectedGraph<String, DefaultEdge> grafo  = model.buildGraph(lunghezza);
-    		 List<String> path = model.esisteCammino(grafo, iniziale, finale);
-    		    if(path.size() == 0){
+    		 List<String> path = model.getCammino(grafo, iniziale, finale);
+    		    if(path==null){
     			 txtResult.appendText("Il cammino non esiste! \n ");
     			 return; 
     		    }

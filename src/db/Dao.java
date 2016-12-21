@@ -9,35 +9,49 @@ import java.util.List;
 
 import bean.Parola;
 
+
 public class Dao {
 	
 	public int contaParole(int lunghezza){
 		Connection conn = DBConnect.getConnection();
 		String query = "select count(*) from parola where length(nome)='?'";
-		List<Parola> parole = new LinkedList<Parola>();
-		int count ;
+		int count=0 ;
 		try{
 			PreparedStatement st =conn.prepareStatement(query);
 			st.setInt(1, lunghezza);
 			ResultSet res = st.executeQuery();
-			while(res.next()){
-				Parola p = new Parola(res.getInt("id"), res.getString("nome"));
-    			parole.add(p);
-				//count++;
-			}
-			count = parole.size();
-			res.close();
+			res.first();
+			count=res.getInt(1);
 			st.close();
 			conn.close();
-			
-			return count;
-			
 		}catch(SQLException e ){
 			e.printStackTrace();
 			throw new RuntimeException ("Errore nel db! \n", e);
 		}
-		
+		return count ;
 	}
+	
+//	public int contaParole(int lunghezza){
+//		Connection conn = DBConnect.getConnection();
+//		String query = "select count(*) from parola where length(nome)='?'";
+//		//int count=0 ;
+//		int contatore=-1; 
+//		try{
+//			PreparedStatement st =conn.prepareStatement(query);
+//			st.setInt(1, lunghezza);
+//			ResultSet res = st.executeQuery();
+//			if(res.next()){
+//				contatore = res.getInt("contatore");
+//			}
+//			st.close();
+//			conn.close();
+//		}catch(SQLException e ){
+//			e.printStackTrace();
+//			throw new RuntimeException ("Errore nel db! \n", e);
+//		}
+//		return contatore ;
+//	}
+//	
 	
 	public List<Parola> getParoleDiLunghezza(int lunghezza){
 		Connection conn = DBConnect.getConnection();
